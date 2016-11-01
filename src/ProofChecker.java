@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by Антон on 30.10.2016.
@@ -48,31 +47,31 @@ public class ProofChecker {
         for (int i = 1; i <= Main.axList.size(); i++) {
             axMap.clear();
             if (checkForAx(e, Main.axList.get(i - 1))) {
-                res = new StringBuilder().append("(Сх. акс. ").append(i).append(")").toString();
+                res = "(Сх. акс. " + i + ")";
                 break;
             }
         }
         for (int i = 1; i <= Main.hypList.size(); i++)
             if (checkForHyp(e, Main.hypList.get(i - 1))) {
-                res = new StringBuilder().append("(Предп. ").append(i).append(")").toString();
+                res = "(Предп. " + i + ")";
                 break;
             }
         if (checkedImpl.containsKey(e.stringRepresentation)) {
             for (Entity impl: checkedImpl.get(e.stringRepresentation))
                 if (checkedStatements.containsKey(impl.left.stringRepresentation))
-                    res = new StringBuilder().append("(M.P. ").append(checkedStatements.get(impl.left.stringRepresentation))
-                    .append(", ").append(checkedStatements.get(impl.stringRepresentation)).append(")").toString();
+                    res = "(M.P. " + checkedStatements.get(impl.left.stringRepresentation) +
+                            ", " + checkedStatements.get(impl.stringRepresentation) + ")";
         }
 
         checkedStatements.put(e.stringRepresentation, num);
         if (e.type == Entity.EntityType.impl) {
             if (!checkedImpl.containsKey(e.right.stringRepresentation))
-                checkedImpl.put(e.right.stringRepresentation, new ArrayList<Entity>());
+                checkedImpl.put(e.right.stringRepresentation, new ArrayList<>());
             checkedImpl.get(e.right.stringRepresentation).add(e);
         }
 
         if (res.equals(""))
-            res = new StringBuilder().append("(Не доказано)").toString();
+            res = "(Не доказано)";
         return res;
     }
 }
