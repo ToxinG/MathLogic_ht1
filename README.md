@@ -1,4 +1,8 @@
 # MathLogic_ht1
-Input file name: test.txt
+Input file: test.txt
 
-Output file name: output.txt
+Output file: output.txt
+
+Поддерживается два способа вывода выражений: 1) с исходной расстановкой скобок, 2) со скобками для каждой двухместной операции.
+
+Можно изменить выбранный способ, раскомментировав один и закомментировав другой, в конце Main.java.

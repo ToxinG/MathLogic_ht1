@@ -44,23 +44,23 @@ public class ProofChecker {
     //coordinates other check-functions, checks statements for Modus Ponens and creates annotations
     public String check(Entity e, int num) {
         String res = "";
-        for (int i = 1; i <= Main.axList.size(); i++) {
-            axMap.clear();
-            if (checkForAx(e, Main.axList.get(i - 1))) {
-                res = "(Сх. акс. " + i + ")";
-                break;
-            }
+        if (checkedImpl.containsKey(e.stringRepresentation)) {
+            for (Entity impl: checkedImpl.get(e.stringRepresentation))
+                if (checkedStatements.containsKey(impl.left.stringRepresentation))
+                    res = "(M.P. " + checkedStatements.get(impl.left.stringRepresentation) +
+                            ", " + checkedStatements.get(impl.stringRepresentation) + ")";
         }
         for (int i = 1; i <= Main.hypList.size(); i++)
             if (checkForHyp(e, Main.hypList.get(i - 1))) {
                 res = "(Предп. " + i + ")";
                 break;
             }
-        if (checkedImpl.containsKey(e.stringRepresentation)) {
-            for (Entity impl: checkedImpl.get(e.stringRepresentation))
-                if (checkedStatements.containsKey(impl.left.stringRepresentation))
-                    res = "(M.P. " + checkedStatements.get(impl.left.stringRepresentation) +
-                            ", " + checkedStatements.get(impl.stringRepresentation) + ")";
+        for (int i = 1; i <= Main.axList.size(); i++) {
+            axMap.clear();
+            if (checkForAx(e, Main.axList.get(i - 1))) {
+                res = "(Сх. акс. " + i + ")";
+                break;
+            }
         }
 
         checkedStatements.put(e.stringRepresentation, num);

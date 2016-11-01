@@ -47,8 +47,14 @@ public class Main {
         ProofChecker pc = new ProofChecker();
         writer.println(inference);
         for (int i = 1; i <= proofList.size(); i++)
-            writer.println(new StringBuilder().append("(").append(i).append(") ").append(proofs.get(i - 1))
-                    .append(" ").append(pc.check(proofList.get(i - 1), i)));
+
+            /*1st print option (without spaces, with default brackets)
+            writer.println("(" + i + ") " + proofs.get(i - 1) + " " + pc.check(proofList.get(i - 1), i));
+             */
+
+            /*2nd print option (without spaces, with brackets for each binary operation) */
+            writer.println("(" + i + ") " + proofList.get(i - 1).stringRepresentation + " " + pc.check(proofList.get(i - 1), i));
+            /* */
 
         writer.close();
     }
